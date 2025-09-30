@@ -46,12 +46,11 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.ALL},orphanRemoval = true)
     @JoinColumn(name = "patient_incurance_id") // owning side of the relationship
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient")
-    @ToString.Exclude
+    @OneToMany(mappedBy = "patient",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Appointment> appointments = new ArrayList<>();
 
 

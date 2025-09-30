@@ -42,4 +42,8 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
     @Modifying // Update/Delete queries must be annotated with @Modifying, otherwise an InvalidDataAccessApiUsageException will be thrown.
     @Query("UPDATE Patient p SET p.name = :name WHERE p.id = :id")
     int updateNameById(@Param("name") String name , @Param("id") Long id);
+
+    @Query("SELECT p from Patient p LEFT JOIN FETCH p.appointments a left join fetch a.doctor")
+//    @Query("SELECT p from Patient p LEFT JOIN FETCH p.appointments")
+    List<Patient> findAllPatientWithAppointments();
 }
