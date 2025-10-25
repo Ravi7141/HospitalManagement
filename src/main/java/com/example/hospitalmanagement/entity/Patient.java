@@ -1,6 +1,7 @@
 package com.example.hospitalmanagement.entity;
 
 import com.example.hospitalmanagement.entity.type.BloodGroupType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,10 +48,12 @@ public class Patient {
     private BloodGroupType bloodGroup;
 
     @OneToOne(cascade = {CascadeType.ALL},orphanRemoval = true)
-    @JoinColumn(name = "patient_incurance_id") // owning side of the relationship
+    @JoinColumn(name = "patient_incurance_id")
+    @JsonManagedReference("patient-insurance") // owning side of the relationship
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.EAGER)
+    @JsonManagedReference("patient-appointments")
     private List<Appointment> appointments = new ArrayList<>();
 
 

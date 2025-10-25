@@ -1,5 +1,8 @@
 package com.example.hospitalmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,8 +32,10 @@ public class Doctor {
     private String email;
 
     @ManyToMany(mappedBy = "doctors")
+    @JsonIgnore
     private Set<Department> departments = new HashSet<>();
 
-    @OneToMany(mappedBy = "doctor" )
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Appointment> appointments = new ArrayList<>();
 }

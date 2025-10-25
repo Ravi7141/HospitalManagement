@@ -1,5 +1,6 @@
 package com.example.hospitalmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,10 +28,12 @@ public class Appointment {
     @ManyToOne
     @ToString.Exclude
     @JoinColumn(name = "patient_id",nullable = false)
+    @JsonBackReference("patient-appointments")
     private Patient patient;
 
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(nullable = false)
+    @JsonBackReference
     private Doctor doctor;
 
 }

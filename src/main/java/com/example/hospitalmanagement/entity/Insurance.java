@@ -1,5 +1,6 @@
 package com.example.hospitalmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,6 +33,7 @@ public class Insurance {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "insurance") // inverse side of the relationship
+    @OneToOne(mappedBy = "insurance")
+    @JsonBackReference("patient-insurance")// inverse side of the relationship
     private Patient patient;
 }

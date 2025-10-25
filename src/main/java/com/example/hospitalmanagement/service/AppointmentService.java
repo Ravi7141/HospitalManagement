@@ -11,9 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
@@ -46,5 +48,69 @@ public class AppointmentService {
         doctor.getAppointments().add(appointment); // to maintain bidirectional relationship
 
         return appointment;
+    }
+
+    public List<Appointment> getAllAppointments() {
+        return appointmentRepository.findAll();
+    }
+
+    public Appointment getAppointmentById(Long id) {
+        return appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
+    }
+
+    public Appointment saveAppointment(Appointment appointment) {
+        // Validate patient exists
+        Patient patient = patientRepository.findById(appointment.getPatient().getId())
+                .orElseThrow(() -> new RuntimeException("Patient not found with id: " + appointment.getPatient().getId()));
+
+        // Validate doctor exists
+        Doctor doctor = doctorRepository.findById(appointment.getDoctor().getId())
+                .orElseThrow(() -> new RuntimeException("Doctor not found with id: " + appointment.getDoctor().getId()));
+
+        appointment.setPatient(patient);
+        appointment.setDoctor(doctor);
+
+        return appointmentRepository.save(appointment);
+    }
+
+    public Appointment updateAppointment(Long id, Appointment appointmentDetails) {
+        Appointment appointment = getAppointmentById(id);
+
+        appointment.setAppointmentTime(appointmentDetails.getAppointmentTime());
+        appointment.setReason(appointmentDetails.getReason());
+
+        // Update patient if provided
+        if (appointmentDetails.getPatient() != null) {
+            Patient patient = patientRepository.findById(appointmentDetails.getPatient().getId())
+                    .orElseThrow(() -> new RuntimeException("Patient not found with id: " + appointmentDetails.getPatient().getId()));
+            appointment.setPatient(patient);
+        }
+
+        // Update doctor if provided
+        if (appointmentDetails.getDoctor() != null) {
+            Doctor doctor = doctorRepository.findById(appointmentDetails.getDoctor().getId())
+                    .orElseThrow(() -> new RuntimeException("Doctor not found with id: " + appointmentDetails.getDoctor().getId()));
+            appointment.setDoctor(doctor);
+        }
+
+        return appointmentRepository.save(appointment);
+    }
+
+    public void deleteAppointment(Long id) {
+        Appointment appointment = getAppointmentById(id);
+        appointmentRepository.delete(appointment);
+    }
+
+    public List<Appointment> getAppointmentsByPatient(Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new RuntimeException("Patient not found with id: " + patientId));
+        return appointmentRepository.findByPatientId(patientId);
+    }
+
+    public List<Appointment> getAppointmentsByDoctor(Long doctorId) {
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new RuntimeException("Doctor not found with id: " + doctorId));
+        return appointmentRepository.findByDoctorId(doctorId);
     }
 }
