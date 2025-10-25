@@ -19,7 +19,7 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
     Patient getPatientByName(String name);
     List<Patient> findByNameContainingOrderByIdDesc(String name);
 
-    @Query("SELECT p FROM Patient p WHERE p.bloodGroup = ?1")
+    @Query("SELECT p FROM Patient p WHERE p.bloodGroup = :bloodGroup")
     List<Patient> findByBloodGroup(@Param("bloodGroup") BloodGroupType bloodGroup);
 
     @Query("SELECT p FROM Patient p WHERE p.birthDate > :birthDate")
