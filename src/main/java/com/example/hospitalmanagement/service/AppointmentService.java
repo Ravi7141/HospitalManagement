@@ -59,6 +59,7 @@ public class AppointmentService {
                 .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
     }
 
+    @Transactional
     public Appointment saveAppointment(Appointment appointment) {
         // Validate patient exists
         Patient patient = patientRepository.findById(appointment.getPatient().getId())
