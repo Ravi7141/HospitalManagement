@@ -1,6 +1,7 @@
 package com.example.hospitalmanagement.entity;
 
 import com.example.hospitalmanagement.entity.type.BloodGroupType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -56,5 +57,9 @@ public class Patient {
     @JsonManagedReference("patient-appointments")
     private List<Appointment> appointments = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
 }
