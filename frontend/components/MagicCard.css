@@ -1,0 +1,88 @@
+.magic-card {
+    position: relative;
+    border-radius: 16px;
+    background: var(--bg-white);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.magic-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.magic-card-spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.4s ease;
+}
+
+.magic-card-border {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.4s ease;
+}
+
+.magic-card-content {
+    position: relative;
+    z-index: 2;
+    background: var(--bg-white);
+    border-radius: 15px;
+    margin: 1px;
+    padding: 20px;
+    height: calc(100% - 2px);
+    box-sizing: border-box;
+}
+
+/* Dark mode adjustments */
+html.dark .magic-card {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+}
+
+html.dark .magic-card:hover {
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+html.dark .magic-card-content {
+    background: var(--bg-white);
+}
+
+/* Stat Card specific styling */
+.magic-stat-card {
+    height: 100%;
+}
+
+.magic-stat-card .magic-card-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Dashboard card specific styling */
+.magic-dashboard-card {
+    height: 100%;
+}
+
+.magic-dashboard-card .magic-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Doctor card specific styling */
+.magic-doctor-card {
+    height: 100%;
+}
+
+.magic-doctor-card .magic-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+}
