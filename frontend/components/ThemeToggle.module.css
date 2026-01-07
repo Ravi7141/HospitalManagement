@@ -1,0 +1,299 @@
+/* ===== Theme Toggle Button ===== */
+.toggle {
+    position: relative;
+    width: 70px;
+    height: 34px;
+    border: none;
+    border-radius: 34px;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.68, -0.15, 0.265, 1.15);
+}
+
+.toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.toggleTrack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 34px;
+    transition: background 0.5s ease;
+}
+
+/* Light mode styles */
+.light .toggleTrack {
+    background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 50%, #E0F7FA 100%);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(135, 206, 235, 0.4);
+}
+
+/* Dark mode styles */
+.dark .toggleTrack {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(15, 52, 96, 0.6);
+}
+
+/* ===== Thumb (Sun/Moon Container) ===== */
+.thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: transform 0.5s cubic-bezier(0.68, -0.15, 0.265, 1.15);
+    z-index: 10;
+}
+
+.dark .thumb {
+    transform: translateX(36px);
+}
+
+/* ===== Sun ===== */
+.sun {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease;
+}
+
+.sunCore {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #FFD93D 0%, #FF9900 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 10px rgba(255, 217, 61, 0.6),
+        0 0 20px rgba(255, 153, 0, 0.4),
+        inset -2px -2px 4px rgba(255, 120, 0, 0.3);
+    transition: all 0.5s ease;
+}
+
+.light .sunCore {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+}
+
+.dark .sunCore {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotate(180deg);
+}
+
+/* Sun rays */
+.sunRays {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: all 0.5s ease;
+}
+
+.ray {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 6px;
+    background: linear-gradient(to top, #FFD93D, transparent);
+    transform-origin: center 14px;
+    border-radius: 2px;
+    transition: all 0.5s ease;
+}
+
+.light .sunRays {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.dark .sunRays {
+    opacity: 0;
+    transform: rotate(45deg);
+}
+
+/* ===== Moon ===== */
+.moon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease;
+}
+
+.moonCore {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 50%, #D4D4D4 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.4),
+        0 0 20px rgba(200, 200, 255, 0.2),
+        inset -3px -3px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+
+.light .moonCore {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotate(-180deg);
+}
+
+.dark .moonCore {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+}
+
+.crater {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    transition: all 0.5s ease;
+}
+
+.light .crater {
+    opacity: 0;
+}
+
+.dark .crater {
+    opacity: 1;
+}
+
+/* ===== Stars ===== */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    animation: twinkle 1.5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.7);
+    }
+}
+
+.light .stars {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.dark .stars {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ===== Clouds ===== */
+.clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.cloud {
+    position: absolute;
+    width: 14px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.cloud::before,
+.cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 8px;
+    height: 8px;
+    top: -4px;
+    left: 2px;
+}
+
+.cloud::after {
+    width: 6px;
+    height: 6px;
+    top: -3px;
+    right: 2px;
+}
+
+.light .clouds {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.dark .clouds {
+    opacity: 0;
+    transform: translateX(10px);
+}
+
+/* ===== Hover Effects ===== */
+.toggle:hover .sunCore {
+    box-shadow:
+        0 0 15px rgba(255, 217, 61, 0.8),
+        0 0 30px rgba(255, 153, 0, 0.5),
+        inset -2px -2px 4px rgba(255, 120, 0, 0.3);
+}
+
+.toggle:hover .moonCore {
+    box-shadow:
+        0 0 15px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(200, 200, 255, 0.3),
+        inset -3px -3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.toggle:hover .thumb {
+    transform: scale(1.05);
+}
+
+.dark.toggle:hover .thumb {
+    transform: translateX(36px) scale(1.05);
+}
+
+/* Active press effect */
+.toggle:active .thumb {
+    transform: scale(0.95);
+}
+
+.dark.toggle:active .thumb {
+    transform: translateX(36px) scale(0.95);
+}

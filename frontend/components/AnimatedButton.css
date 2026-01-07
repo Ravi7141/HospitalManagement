@@ -1,0 +1,110 @@
+.animated-button {
+    position: relative;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+    outline: none;
+}
+
+.animated-button-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.animated-button-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Primary variant */
+.animated-button-primary {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.animated-button-primary:hover:not(.disabled) {
+    background: var(--primary-blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.animated-button-primary:active:not(.disabled) {
+    transform: translateY(0);
+}
+
+/* Secondary variant */
+.animated-button-secondary {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.animated-button-secondary:hover:not(.disabled) {
+    background: var(--bg-main);
+    border-color: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Success variant */
+.animated-button-success {
+    background: var(--status-active);
+    color: white;
+}
+
+.animated-button-success:hover:not(.disabled) {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+/* Danger variant */
+.animated-button-danger {
+    background: var(--action-delete);
+    color: white;
+}
+
+.animated-button-danger:hover:not(.disabled) {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Disabled state */
+.animated-button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Dark mode adjustments */
+html.dark .animated-button-secondary {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+html.dark .animated-button-secondary:hover:not(.disabled) {
+    background: var(--sidebar-hover);
+}
+

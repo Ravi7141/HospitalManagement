@@ -1,0 +1,30 @@
+.fade-in {
+    opacity: 0;
+    transition: opacity var(--duration, 0.5s) ease, transform var(--duration, 0.5s) ease;
+}
+
+.fade-in-up {
+    transform: translateY(30px);
+}
+
+.fade-in-down {
+    transform: translateY(-30px);
+}
+
+.fade-in-left {
+    transform: translateX(-30px);
+}
+
+.fade-in-right {
+    transform: translateX(30px);
+}
+
+.fade-in-scale {
+    transform: scale(0.9);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translate(0) scale(1);
+}
+

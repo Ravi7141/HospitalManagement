@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "react-bit": {
+      "command": "node",
+      "args": ["mcp-server.mjs"],
+      "cwd": "C:\\Users\\nayak\\IdeaProjects\\hospitalManagement\\frontend"
+    }
+  }
+}
+
